@@ -14,21 +14,26 @@ def multiply(input, slice)
   input[slice[3]] = input[slice[1]] * input[slice[2]]
 end
 
-input.each_slice(4) do |slice|
-  case slice[0]
-  when 1
-     addition(input, slice)
-  when 2
-     multiply(input, slice)
-  when 99
-     break
-  else
-     puts "Error on slice #{slice}"
-  end
+def get_output(input)
+   input.each_slice(4) do |slice|
+     case slice[0]
+     when 1
+        addition(input, slice)
+     when 2
+        multiply(input, slice)
+     when 99
+        break
+     else
+        puts "Error on slice #{slice}"
+     end
+   end
+
+   return input[0]
 end
 
+
 print "Exercise 1: "
-puts input[0]
+puts get_output(input)
 
 
 ## Second Exercise
@@ -42,21 +47,10 @@ result = []
       new_input[1] = noun
       new_input[2] = verb
 
-      new_input.each_slice(4) do |slice|
-         case slice[0]
-         when 1
-            addition(new_input, slice)
-         when 2
-            multiply(new_input, slice)
-         when 99
-            break
-         else
-            puts "Error on slice #{slice}"
-         end
-       end
+      output = get_output(new_input)
 
-       if new_input[0] == 19690720
-         result = [new_input[0], noun, verb]
+       if output == 19690720
+         result = [output, noun, verb]
          break
        end
    end
